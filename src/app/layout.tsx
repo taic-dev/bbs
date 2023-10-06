@@ -3,22 +3,32 @@
 import "./reset.css";
 import "./globals.css";
 import styled from "@emotion/styled";
+import { usePathname } from 'next/navigation';
+import { Header } from "@/components/layouts/Header/Header";
 import { Sidebar } from "@/components/layouts/Sidebar/Sidebar";
 import { LogoSvg } from "@/components/elements/Svg/LogoSvg";
+import { replaceInitialsToCapitals } from "@/utils";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const params = usePathname()
+  const pageTitle = replaceInitialsToCapitals(params.replace("/", ""))
+  
   const Wrapper = styled.div`
     display: flex;
     height: 100vh;
   `;
 
-  const Main = styled.main`
+  const MainWrapper = styled.div`
     width: calc(100% - 250px);
   `;
+
+  const Main = styled.main`
+    padding: 0 1.5rem;
+  `
 
   const Aside = styled.aside`
     max-width: 250px;
@@ -43,7 +53,10 @@ export default function RootLayout({
             </LogoWrapper>
             <Sidebar />
           </Aside>
-          <Main>{children}</Main>
+          <MainWrapper>
+            <Header pageTitle={pageTitle} />
+            <Main>{children}</Main>
+          </MainWrapper>
         </Wrapper>
       </body>
     </html>
