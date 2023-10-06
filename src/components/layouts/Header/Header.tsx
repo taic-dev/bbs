@@ -14,7 +14,7 @@ export function Header({ pageTitle }: Props) {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    height: 115px;
+    height: 150px;
     padding: 0 1.5rem;
   `;
 

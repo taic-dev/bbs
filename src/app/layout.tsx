@@ -19,6 +19,7 @@ export default function RootLayout({
   
   const Wrapper = styled.div`
     display: flex;
+    justify-content: end;
     height: 100vh;
   `;
 
@@ -31,6 +32,10 @@ export default function RootLayout({
   `
 
   const Aside = styled.aside`
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
     max-width: 250px;
     width: 100%;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
@@ -39,8 +44,10 @@ export default function RootLayout({
   `;
 
   const LogoWrapper = styled.div`
-    text-align: center;
-    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
   `;
 
   return (
