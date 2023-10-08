@@ -1,5 +1,5 @@
 import * as React from "react";
-import Link from 'next/link'
+import Link from "next/link";
 import styled from "@emotion/styled";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -13,9 +13,18 @@ type Props = {
   title: string;
   text: string;
   image_url: string;
+  onClickEdit?: () => void;
+  onClickDelete?: () => void;
 };
 
-export function MediaCard({ id, title, text, image_url }: Props) {
+export function MediaCard({
+  id,
+  title,
+  text,
+  image_url,
+  onClickDelete,
+  onClickEdit,
+}: Props) {
   const CardMain = styled(Card)`
     width: calc(50% - 1.5rem / 2);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
@@ -43,10 +52,16 @@ export function MediaCard({ id, title, text, image_url }: Props) {
           <NormalButton size="small" variant="text" text="detail" />
         </Link>
         <div>
-          <NormalButton size="small" variant="text" text="edit"             sx={{
+          <NormalButton
+            size="small"
+            variant="text"
+            text="edit"
+            sx={{
               color: "#00B16B",
               ":hover": { backgroundColor: "rgba(0,	177,	107, 0.04)" },
-            }} />
+            }}
+            onClick={onClickEdit}
+          />
           <NormalButton
             size="small"
             variant="text"
@@ -55,6 +70,7 @@ export function MediaCard({ id, title, text, image_url }: Props) {
               color: "#ED1A3D",
               ":hover": { backgroundColor: "rgba(237,	26,	61, 0.04)" },
             }}
+            onClick={onClickDelete}
           />
         </div>
       </CardButtonWrapper>
