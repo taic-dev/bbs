@@ -5,8 +5,9 @@ import { SxProps } from '@mui/material/styles';
 type Props = {
   variant: 'text' | 'outlined' | 'contained'
   text: string
-  endIcon: ReactNode
-  sx: SxProps
+  endIcon?: ReactNode
+  sx?: SxProps
+  size?: 'small' | "medium" | "large"
   onClick?: () => void
 }
 
@@ -14,6 +15,7 @@ export function NormalButton({
   variant,
   text,
   onClick,
+  size,
   endIcon,
   sx
 }: Props) {
@@ -22,6 +24,7 @@ export function NormalButton({
       variant={variant}
       endIcon={endIcon}
       onClick={onClick}
+      size={size}
       sx={sx}
     >
       {text}
