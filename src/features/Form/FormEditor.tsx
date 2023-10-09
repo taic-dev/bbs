@@ -29,12 +29,15 @@ export function FormEditor() {
     width: 100%;
   `;
 
+  const handleSubmitFormEditor = () => {
+    // TODO: submit時の処理
+    console.log("submit")
+  }
+
   return (
     <Form
       action=""
-      onSubmit={handleSubmit(() => {
-        console.log("submit");
-      })}
+      onSubmit={handleSubmit(handleSubmitFormEditor)}
     >
       <FormGroup>
         <NormalTextField
