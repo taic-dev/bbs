@@ -31,8 +31,6 @@ export function NormalModal({ title, open, onClose, children }: Props) {
     <Modal
       open={open}
       onClose={onClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
     >
       <ModalWrapper>
         <ModalTitle>

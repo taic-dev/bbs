@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { NormalTextField } from "@/components/elements/Input/NormalTextField";
 import { NormalButton } from "@/components/elements/Button/NormalButton";
 import { FormControl, TextField } from "@mui/material";
 import { FormEditorType } from "./types";
 import { FormEditorSchema } from "./schema";
+import { InputErrorMessage } from "@/components/elements/Input/InputErrorMessage";
 
 export function FormEditor() {
   const {
@@ -12,6 +14,8 @@ export function FormEditor() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormEditorType>({
+    mode: "onSubmit",
+    reValidateMode: "onBlur",
     resolver: zodResolver(FormEditorSchema),
   });
 
@@ -26,17 +30,22 @@ export function FormEditor() {
   `;
 
   return (
-    <Form action="" onSubmit={handleSubmit(()=>{ console.log("submit") })}>
+    <Form
+      action=""
+      onSubmit={handleSubmit(() => {
+        console.log("submit");
+      })}
+    >
       <FormGroup>
-        <TextField
+        <NormalTextField
+          name="title"
           label="タイトル"
-          variant="outlined"
-          sx={{ width: "100%" }}
-          {...register("title")}
-          error={Boolean(errors.title?.message)}
+          register={register}
+          errors={errors}
         />
-        {errors.title?.message && <p>{errors.title?.message}</p>}
+        <InputErrorMessage name="title" errors={errors} />
       </FormGroup>
+
       <FormGroup>
         <TextField
           label="説明"
@@ -45,8 +54,9 @@ export function FormEditor() {
           {...register("text")}
           error={Boolean(errors.text?.message)}
         />
-        {errors.text?.message && <p>{errors.text?.message}</p>}
+        <InputErrorMessage name="text" errors={errors} />
       </FormGroup>
+
       <NormalButton
         type="submit"
         variant="contained"
