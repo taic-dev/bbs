@@ -38,7 +38,7 @@ export function MediaCard({
 
   return (
     <CardMain>
-      <CardMedia sx={{ height: 140 }} image={image_url} title={title} />
+      <CardMedia sx={{ height: 140 }} image={image_url} title={title} component='img' />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}

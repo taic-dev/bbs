@@ -7,11 +7,13 @@ type Props = {
   text: string
   endIcon?: ReactNode
   sx?: SxProps
+  type?: 'submit' | 'reset' | 'button'
   size?: 'small' | "medium" | "large"
   onClick?: () => void
 }
 
 export function NormalButton({
+  type,
   variant,
   text,
   onClick,
@@ -21,6 +23,7 @@ export function NormalButton({
 }: Props) {
   return (
     <Button
+      type={type}
       variant={variant}
       endIcon={endIcon}
       onClick={onClick}
