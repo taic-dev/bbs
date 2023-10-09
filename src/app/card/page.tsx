@@ -1,7 +1,5 @@
+import { CardList } from "@/features/Card/CardList";
+
 export default function Card() {
-  return (
-    <div>
-      Cardページ
-    </div>
-  )
+  return <CardList />;
 }
