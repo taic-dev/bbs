@@ -1,4 +1,4 @@
-import * as React from "react";
+import { MouseEvent } from "react";
 import Link from "next/link";
 import styled from "@emotion/styled";
 import Card from "@mui/material/Card";
@@ -13,8 +13,8 @@ type Props = {
   title: string;
   text: string;
   image_url: string;
-  onClickEdit?: () => void;
-  onClickDelete?: () => void;
+  onClickEdit: (e: MouseEvent<HTMLButtonElement>) => void;
+  onClickDelete: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
 export function MediaCard({
@@ -53,6 +53,7 @@ export function MediaCard({
         </Link>
         <div>
           <NormalButton
+            id={id}
             size="small"
             variant="text"
             text="edit"
@@ -60,9 +61,10 @@ export function MediaCard({
               color: "#00B16B",
               ":hover": { backgroundColor: "rgba(0,	177,	107, 0.04)" },
             }}
-            onClick={onClickEdit}
+            onClick={(e) => onClickEdit(e)}
           />
           <NormalButton
+            id={id}
             size="small"
             variant="text"
             text="delete"
@@ -70,7 +72,7 @@ export function MediaCard({
               color: "#ED1A3D",
               ":hover": { backgroundColor: "rgba(237,	26,	61, 0.04)" },
             }}
-            onClick={onClickDelete}
+            onClick={(e) => onClickDelete(e)}
           />
         </div>
       </CardButtonWrapper>

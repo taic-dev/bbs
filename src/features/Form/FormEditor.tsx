@@ -7,8 +7,13 @@ import { FormControl, TextField } from "@mui/material";
 import { FormEditorType } from "./types";
 import { FormEditorSchema } from "./schema";
 import { InputErrorMessage } from "@/components/elements/Input/InputErrorMessage";
+import { CardListData } from "@/types";
 
-export function FormEditor() {
+type Props = {
+  initialValue?: CardListData[]
+}
+
+export function FormEditor({ initialValue }: Props) {
   const {
     register,
     handleSubmit,
@@ -17,6 +22,7 @@ export function FormEditor() {
     mode: "onSubmit",
     reValidateMode: "onBlur",
     resolver: zodResolver(FormEditorSchema),
+    defaultValues: initialValue && initialValue[0]
   });
 
   const Form = styled.form`
@@ -71,7 +77,6 @@ export function FormEditor() {
           backgroundColor: "#333",
           ":hover": { color: "#333", backgroundColor: "#fff" },
         }}
-        // onClick={}
       />
     </Form>
   );

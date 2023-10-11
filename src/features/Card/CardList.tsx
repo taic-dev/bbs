@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import styled from "@emotion/styled";
 import { MediaCard } from "@/components/elements/Card/MediaCard";
 import { CARD_LIST_DUMMY_DATA } from "@/constants/dummyData";
 import { ConfirmModal } from "@/components/elements/Modal/ConfirmModal";
+import { FormEditor } from "../Form/FormEditor";
+import { NormalModal } from "@/components/elements/Modal/NormalModal";
+import { CardListData } from "@/types"
 
 const CardWrapper = styled.div`
   padding-bottom: 50px;
@@ -16,14 +19,21 @@ const CardWrapper = styled.div`
 export function CardList() {
 
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
+  const [openEditModal, setOpenEditModal] = useState<boolean>(false)
+  const [initialValue, setInitialValue] = useState<CardListData[]>([])
 
-  const handleClickEdit = () => {
-    // TODO: 新規登録のモーダルを使いまわして作成する
+  const handleClickEdit = (e: MouseEvent<HTMLButtonElement>) => {
+    const cardId = (e.target as HTMLButtonElement).id
+    const cardListData = CARD_LIST_DUMMY_DATA.filter((cardData) => {
+      return cardData.id === Number(cardId)
+    })
+    setOpenEditModal(true)
+    setInitialValue(cardListData)
   }
 
-  const handleClickDelete = () => {
-    console.log("delete!!")
-    // TODO: 削除機能を作成
+  const handleClickDelete = (e: MouseEvent<HTMLButtonElement>) => {
+    console.log((e.target as HTMLButtonElement).id)
+    setOpenDeleteModal(true)
   }
 
   return (
@@ -35,8 +45,8 @@ export function CardList() {
           title={title}
           text={text}
           image_url={image_url}
-          onClickEdit={handleClickEdit}
-          onClickDelete={() => setOpenDeleteModal(true)}
+          onClickEdit={(e) => handleClickEdit(e)}
+          onClickDelete={(e) => handleClickDelete(e)}
         />
       ))}
       <ConfirmModal
@@ -44,8 +54,15 @@ export function CardList() {
         text="削除すると復元することができません。"
         open={openDeleteModal}
         onClose={() => setOpenDeleteModal(false)}
-        doExecution={handleClickDelete}
+        doExecution={() => setOpenDeleteModal(false)}
       />
+      <NormalModal
+        title="記事編集"
+        open={openEditModal}
+        onClose={() => setOpenEditModal(false)}
+      >
+        <FormEditor initialValue={initialValue} />
+      </NormalModal>
     </CardWrapper>
   );
 }
