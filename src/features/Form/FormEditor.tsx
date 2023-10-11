@@ -71,7 +71,6 @@ export function FormEditor() {
           backgroundColor: "#333",
           ":hover": { color: "#333", backgroundColor: "#fff" },
         }}
-        // onClick={}
       />
     </Form>
   );

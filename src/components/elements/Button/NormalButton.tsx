@@ -1,32 +1,35 @@
-import { ReactNode } from "react"
+import { MouseEvent, ReactNode } from "react"
 import { Button } from "@mui/material"
 import { SxProps } from '@mui/material/styles';
 
-type Props = {
+type Props<T> = {
   variant: 'text' | 'outlined' | 'contained'
   text: string
   endIcon?: ReactNode
+  id?: T
   sx?: SxProps
   type?: 'submit' | 'reset' | 'button'
   size?: 'small' | "medium" | "large"
-  onClick?: () => void
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
-export function NormalButton({
+export function NormalButton<T extends number>({
   type,
   variant,
   text,
   onClick,
   size,
   endIcon,
+  id,
   sx
-}: Props) {
+}: Props<T>) {
   return (
     <Button
       type={type}
       variant={variant}
       endIcon={endIcon}
-      onClick={onClick}
+      id={id?.toString()}
+      onClick={(e) => onClick?.(e)}
       size={size}
       sx={sx}
     >

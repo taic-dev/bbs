@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import styled from "@emotion/styled";
 import { MediaCard } from "@/components/elements/Card/MediaCard";
 import { CARD_LIST_DUMMY_DATA } from "@/constants/dummyData";
 import { ConfirmModal } from "@/components/elements/Modal/ConfirmModal";
+import { FormEditor } from "../Form/FormEditor";
+import { NormalModal } from "@/components/elements/Modal/NormalModal";
 
 const CardWrapper = styled.div`
   padding-bottom: 50px;
@@ -16,8 +18,12 @@ const CardWrapper = styled.div`
 export function CardList() {
 
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
+  const [openEditModal, setOpenEditModal] = useState<boolean>(false)
 
-  const handleClickEdit = () => {
+  const handleClickEdit = (e: MouseEvent<HTMLButtonElement>) => {
+    console.log((e.target as HTMLButtonElement).id)
+    setOpenEditModal(true)
+    // TODO: idの内容を元に投稿情報を割り当ててinputに初期値を追加
     // TODO: 新規登録のモーダルを使いまわして作成する
   }
 
@@ -35,7 +41,7 @@ export function CardList() {
           title={title}
           text={text}
           image_url={image_url}
-          onClickEdit={handleClickEdit}
+          onClickEdit={(e) => handleClickEdit(e)}
           onClickDelete={() => setOpenDeleteModal(true)}
         />
       ))}
@@ -46,6 +52,13 @@ export function CardList() {
         onClose={() => setOpenDeleteModal(false)}
         doExecution={handleClickDelete}
       />
+      <NormalModal
+        title="記事編集"
+        open={openEditModal}
+        onClose={() => setOpenEditModal(false)}
+      >
+        <FormEditor />
+      </NormalModal>
     </CardWrapper>
   );
 }
