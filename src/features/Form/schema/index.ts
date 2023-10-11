@@ -8,5 +8,5 @@ export const FormEditorSchema = z.object({
   text: z
     .string()
     .min(10, { message: "10文字以上で入力してください" })
-    .max(100, { message: "100文字以下で入力してください" }),
+    .max(1000, { message: "1000文字以下で入力してください" }),
 });

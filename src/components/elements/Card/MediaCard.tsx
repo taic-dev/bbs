@@ -14,7 +14,7 @@ type Props = {
   text: string;
   image_url: string;
   onClickEdit: (e: MouseEvent<HTMLButtonElement>) => void;
-  onClickDelete: () => void;
+  onClickDelete: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
 export function MediaCard({
@@ -64,6 +64,7 @@ export function MediaCard({
             onClick={(e) => onClickEdit(e)}
           />
           <NormalButton
+            id={id}
             size="small"
             variant="text"
             text="delete"
@@ -71,7 +72,7 @@ export function MediaCard({
               color: "#ED1A3D",
               ":hover": { backgroundColor: "rgba(237,	26,	61, 0.04)" },
             }}
-            onClick={onClickDelete}
+            onClick={(e) => onClickDelete(e)}
           />
         </div>
       </CardButtonWrapper>
