@@ -1,6 +1,6 @@
-export interface CardListData {
+export interface PostsData {
   id: number;
-  image_url: string;
-  title: string;
-  text: string;
+  thumbnail_url: string;
+  title: { rendered: string };
+  content: { rendered: string };
 }

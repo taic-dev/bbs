@@ -1,8 +1,9 @@
-import { fetcher } from "@/api/card/fetcher"
+import { fetcher } from "@/api/post/fetcher"
 import useSWR from "swr"
 
-export function usePost() {
-  const { data, error, isLoading } = useSWR("/api/posts", fetcher)
+export function usePost(id?: string) {
+  const postId = id ? id : ""
+  const { data, error, isLoading } = useSWR(`/api/posts/${postId}`, fetcher)
 
   return {
     post: data,

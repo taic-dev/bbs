@@ -1,4 +1,4 @@
 export interface FormEditorType {
-  title: string
-  text: string
+  title: string;
+  content: string;
 }

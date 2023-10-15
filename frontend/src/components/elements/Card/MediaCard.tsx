@@ -7,11 +7,12 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { NormalButton } from "../Button/NormalButton";
+import { htmlExclusionsAndTextExcerpts } from "@/utils";
 
 type Props = {
   id: number;
   title: string;
-  text: string;
+  content: string;
   image_url: string;
   onClickEdit: (e: MouseEvent<HTMLButtonElement>) => void;
   onClickDelete: (e: MouseEvent<HTMLButtonElement>) => void;
@@ -20,7 +21,7 @@ type Props = {
 export function MediaCard({
   id,
   title,
-  text,
+  content,
   image_url,
   onClickDelete,
   onClickEdit,
@@ -38,13 +39,18 @@ export function MediaCard({
 
   return (
     <CardMain>
-      <CardMedia sx={{ height: 140 }} image={image_url} title={title} component='img' />
+      <CardMedia
+        sx={{ height: 140 }}
+        image={image_url ? image_url : "../img/not_found.png"}
+        title={title}
+        component="img"
+      />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {text}
+          {htmlExclusionsAndTextExcerpts(content, 150)}
         </Typography>
       </CardContent>
       <CardButtonWrapper>
