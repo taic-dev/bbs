@@ -8,6 +8,7 @@ import { ConfirmModal } from "@/components/elements/Modal/ConfirmModal";
 import { FormEditor } from "../Form/FormEditor";
 import { NormalModal } from "@/components/elements/Modal/NormalModal";
 import { CardListData } from "@/types"
+import { usePost } from "@/hooks/usePost";
 
 const CardWrapper = styled.div`
   padding-bottom: 50px;
@@ -17,6 +18,9 @@ const CardWrapper = styled.div`
 `;
 
 export function CardList() {
+  const { post, isError, isLoading } = usePost()
+
+  console.log(post, isLoading)
 
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
   const [openEditModal, setOpenEditModal] = useState<boolean>(false)
