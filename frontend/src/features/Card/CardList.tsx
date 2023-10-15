@@ -3,11 +3,11 @@
 import { MouseEvent, useState } from "react";
 import styled from "@emotion/styled";
 import { MediaCard } from "@/components/elements/Card/MediaCard";
-import { CARD_LIST_DUMMY_DATA } from "@/constants/dummyData";
 import { ConfirmModal } from "@/components/elements/Modal/ConfirmModal";
 import { FormEditor } from "../Form/FormEditor";
 import { NormalModal } from "@/components/elements/Modal/NormalModal";
-import { CardListData } from "@/types"
+import { PostsData } from "@/types"
+import { usePost } from "@/hooks/usePost";
 
 const CardWrapper = styled.div`
   padding-bottom: 50px;
@@ -17,14 +17,15 @@ const CardWrapper = styled.div`
 `;
 
 export function CardList() {
+  const { post, isError, isLoading } = usePost()
 
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
   const [openEditModal, setOpenEditModal] = useState<boolean>(false)
-  const [initialValue, setInitialValue] = useState<CardListData[]>([])
+  const [initialValue, setInitialValue] = useState<PostsData[]>([])
 
   const handleClickEdit = (e: MouseEvent<HTMLButtonElement>) => {
     const cardId = (e.target as HTMLButtonElement).id
-    const cardListData = CARD_LIST_DUMMY_DATA.filter((cardData) => {
+    const cardListData = post.filter((cardData: PostsData) => {
       return cardData.id === Number(cardId)
     })
     setOpenEditModal(true)
@@ -36,15 +37,17 @@ export function CardList() {
     setOpenDeleteModal(true)
   }
 
+  if(isLoading) return  <p>...Loading</p>
+
   return (
     <CardWrapper>
-      {CARD_LIST_DUMMY_DATA.map(({ id, title, text, image_url }) => (
+      {post.map(({ id, title, content, thumbnail_url }: PostsData) => (
         <MediaCard
           key={id}
           id={id}
-          title={title}
-          text={text}
-          image_url={image_url}
+          title={title.rendered}
+          content={content.rendered}
+          image_url={thumbnail_url}
           onClickEdit={(e) => handleClickEdit(e)}
           onClickDelete={(e) => handleClickDelete(e)}
         />

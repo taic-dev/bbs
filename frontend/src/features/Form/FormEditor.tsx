@@ -7,13 +7,14 @@ import { FormControl, TextField } from "@mui/material";
 import { FormEditorType } from "./types";
 import { FormEditorSchema } from "./schema";
 import { InputErrorMessage } from "@/components/elements/Input/InputErrorMessage";
-import { CardListData } from "@/types";
+import { PostsData } from "@/types";
 
 type Props = {
-  initialValue?: CardListData[]
-}
+  initialValue?: PostsData[];
+};
 
 export function FormEditor({ initialValue }: Props) {
+
   const {
     register,
     handleSubmit,
@@ -22,7 +23,10 @@ export function FormEditor({ initialValue }: Props) {
     mode: "onSubmit",
     reValidateMode: "onBlur",
     resolver: zodResolver(FormEditorSchema),
-    defaultValues: initialValue && initialValue[0]
+    defaultValues: initialValue && {
+      title: initialValue[0].title.rendered,
+      content: initialValue[0].content.rendered,
+    },
   });
 
   const Form = styled.form`
@@ -37,14 +41,11 @@ export function FormEditor({ initialValue }: Props) {
 
   const handleSubmitFormEditor = () => {
     // TODO: submit時の処理
-    console.log("submit")
-  }
+    console.log("submit");
+  };
 
   return (
-    <Form
-      action=""
-      onSubmit={handleSubmit(handleSubmitFormEditor)}
-    >
+    <Form action="" onSubmit={handleSubmit(handleSubmitFormEditor)}>
       <FormGroup>
         <NormalTextField
           name="title"
@@ -60,10 +61,10 @@ export function FormEditor({ initialValue }: Props) {
           label="説明"
           rows={7}
           multiline
-          {...register("text")}
-          error={Boolean(errors.text?.message)}
+          {...register("content")}
+          error={Boolean(errors.content?.message)}
         />
-        <InputErrorMessage name="text" errors={errors} />
+        <InputErrorMessage name="content" errors={errors} />
       </FormGroup>
 
       <NormalButton
