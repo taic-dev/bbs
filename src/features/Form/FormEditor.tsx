@@ -14,7 +14,6 @@ type Props = {
 };
 
 export function FormEditor({ initialValue }: Props) {
-
   const {
     register,
     handleSubmit,
@@ -24,8 +23,8 @@ export function FormEditor({ initialValue }: Props) {
     reValidateMode: "onBlur",
     resolver: zodResolver(FormEditorSchema),
     defaultValues: initialValue && {
-      title: initialValue[0].title.rendered,
-      content: initialValue[0].content.rendered,
+      title: initialValue[0].title,
+      text: initialValue[0].text,
     },
   });
 
@@ -61,8 +60,8 @@ export function FormEditor({ initialValue }: Props) {
           label="説明"
           rows={7}
           multiline
-          {...register("content")}
-          error={Boolean(errors.content?.message)}
+          {...register("text")}
+          error={Boolean(errors.text?.message)}
         />
         <InputErrorMessage name="content" errors={errors} />
       </FormGroup>

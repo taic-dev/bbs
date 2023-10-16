@@ -12,7 +12,7 @@ import { htmlExclusionsAndTextExcerpts } from "@/utils";
 type Props = {
   id: number;
   title: string;
-  content: string;
+  text: string;
   image_url: string;
   onClickEdit: (e: MouseEvent<HTMLButtonElement>) => void;
   onClickDelete: (e: MouseEvent<HTMLButtonElement>) => void;
@@ -21,7 +21,7 @@ type Props = {
 export function MediaCard({
   id,
   title,
-  content,
+  text,
   image_url,
   onClickDelete,
   onClickEdit,
@@ -50,7 +50,7 @@ export function MediaCard({
           {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {htmlExclusionsAndTextExcerpts(content, 150)}
+          {htmlExclusionsAndTextExcerpts(text, 150)}
         </Typography>
       </CardContent>
       <CardButtonWrapper>

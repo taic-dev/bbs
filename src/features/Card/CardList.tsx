@@ -8,6 +8,7 @@ import { FormEditor } from "../Form/FormEditor";
 import { NormalModal } from "@/components/elements/Modal/NormalModal";
 import { PostsData } from "@/types"
 import { usePost } from "@/hooks/usePost";
+import { CARD_LIST_DUMMY_DATA } from "@/constants/dummyData";
 
 const CardWrapper = styled.div`
   padding-bottom: 50px;
@@ -25,7 +26,7 @@ export function CardList() {
 
   const handleClickEdit = (e: MouseEvent<HTMLButtonElement>) => {
     const cardId = (e.target as HTMLButtonElement).id
-    const cardListData = post.filter((cardData: PostsData) => {
+    const cardListData = CARD_LIST_DUMMY_DATA.filter((cardData: PostsData) => {
       return cardData.id === Number(cardId)
     })
     setOpenEditModal(true)
@@ -41,13 +42,13 @@ export function CardList() {
 
   return (
     <CardWrapper>
-      {post.map(({ id, title, content, thumbnail_url }: PostsData) => (
+      {CARD_LIST_DUMMY_DATA.map(({ id, title, text, image_url }: PostsData) => (
         <MediaCard
           key={id}
           id={id}
-          title={title.rendered}
-          content={content.rendered}
-          image_url={thumbnail_url}
+          title={title}
+          text={text}
+          image_url={image_url}
           onClickEdit={(e) => handleClickEdit(e)}
           onClickDelete={(e) => handleClickDelete(e)}
         />
