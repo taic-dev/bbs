@@ -11,13 +11,14 @@ import { PostsData } from "@/types";
 
 type Props = {
   initialValue?: PostsData[];
+  onSubmit: (formData: FormEditorType) => void;
 };
 
-export function FormEditor({ initialValue }: Props) {
-
+export function FormEditor({ initialValue, onSubmit }: Props) {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<FormEditorType>({
     mode: "onSubmit",
@@ -39,13 +40,8 @@ export function FormEditor({ initialValue }: Props) {
     width: 100%;
   `;
 
-  const handleSubmitFormEditor = () => {
-    // TODO: submit時の処理
-    console.log("submit");
-  };
-
   return (
-    <Form action="" onSubmit={handleSubmit(handleSubmitFormEditor)}>
+    <Form action="" onSubmit={handleSubmit(() => onSubmit(getValues()))}>
       <FormGroup>
         <NormalTextField
           name="title"

@@ -6,6 +6,9 @@ import { NormalButton } from "@/components/elements/Button/NormalButton";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { NormalModal } from "@/components/elements/Modal/NormalModal";
 import { FormEditor } from "@/features/Form/FormEditor";
+import axios from "axios";
+import { useSWRConfig } from "swr";
+import { FormEditorType } from "@/features/Form/types";
 
 type Props = {
   pageTitle: string;
@@ -13,6 +16,31 @@ type Props = {
 
 export function Header({ pageTitle }: Props) {
   const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
+  const { mutate } = useSWRConfig()
+
+  const handleSubmitFormEditor = async (formData: FormEditorType) => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization:
+        "Basic " +
+        Buffer.from(
+          `${process.env.NEXT_PUBLIC_USER_NAME}:${process.env.NEXT_PUBLIC_PASSWORD}`
+        ).toString("base64"),
+    };
+    const postData = { ...formData, status: "publish" };
+    const res = await axios
+      .post(`${process.env.NEXT_PUBLIC_WP_ENDPOINT}/posts`, postData, { headers })
+      .then((res) => res.data);
+    console.log(res, "submit");
+
+    mutate(
+      `${process.env.NEXT_PUBLIC_WP_ENDPOINT}/posts`,
+      { ...res.data },
+      false
+    );
+
+    setOpenRegisterModal(false)
+  };
 
   const Header = styled.header`
     display: flex;
@@ -50,7 +78,7 @@ export function Header({ pageTitle }: Props) {
         open={openRegisterModal}
         onClose={() => setOpenRegisterModal(false)}
       >
-        <FormEditor />
+        <FormEditor onSubmit={(formData) => handleSubmitFormEditor(formData)} />
       </NormalModal>
     </Header>
   );
