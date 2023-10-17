@@ -7,7 +7,8 @@ import { ConfirmModal } from "@/components/elements/Modal/ConfirmModal";
 import { FormEditor } from "../Form/FormEditor";
 import { NormalModal } from "@/components/elements/Modal/NormalModal";
 import { PostsData } from "@/types"
-import { usePost } from "@/hooks/usePost";
+import { useGetPost } from "@/hooks/useGetPost";
+import { useSWRConfig } from "swr";
 
 const CardWrapper = styled.div`
   padding-bottom: 50px;
@@ -17,9 +18,10 @@ const CardWrapper = styled.div`
 `;
 
 export function CardList() {
-  const { posts, isError, isLoading } = usePost()
+  const { posts, isLoading } = useGetPost()
+  const postsData = posts && [...posts].reverse()
 
-  console.log(posts)
+  console.log(postsData)
 
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
   const [openEditModal, setOpenEditModal] = useState<boolean>(false)
@@ -43,7 +45,7 @@ export function CardList() {
 
   return (
     <CardWrapper>
-      {posts.map(({ id, title, text, image_url }: PostsData) => (
+      {postsData.map(({ id, title, text, image_url }: PostsData) => (
         <MediaCard
           key={id}
           id={id}

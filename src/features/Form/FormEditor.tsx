@@ -11,13 +11,15 @@ import { PostsData } from "@/types";
 
 type Props = {
   initialValue?: PostsData[];
+  onSubmit?: (data: FormEditorType) => void
 };
 
-export function FormEditor({ initialValue }: Props) {
+export function FormEditor({ initialValue, onSubmit }: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm<FormEditorType>({
     mode: "onSubmit",
     reValidateMode: "onBlur",
@@ -25,6 +27,7 @@ export function FormEditor({ initialValue }: Props) {
     defaultValues: initialValue && {
       title: initialValue[0].title,
       text: initialValue[0].text,
+      image_url: ""
     },
   });
 
@@ -39,12 +42,13 @@ export function FormEditor({ initialValue }: Props) {
   `;
 
   const handleSubmitFormEditor = () => {
-    // TODO: submit時の処理
+    const formValues = getValues()
+    onSubmit && onSubmit(formValues)
     console.log("submit");
   };
 
   return (
-    <Form action="" onSubmit={handleSubmit(handleSubmitFormEditor)}>
+    <Form onSubmit={handleSubmit(handleSubmitFormEditor)}>
       <FormGroup>
         <NormalTextField
           name="title"
