@@ -3,10 +3,10 @@ import useSWR from "swr"
 
 export function usePost(id?: string) {
   const postId = id ? id : ""
-  const { data, error, isLoading } = useSWR(`/api/posts/${postId}`, fetcher)
+  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_ENDPOINT}/posts/${postId}`, fetcher)
 
   return {
-    post: data,
+    posts: data,
     isError: error,
     isLoading
   }

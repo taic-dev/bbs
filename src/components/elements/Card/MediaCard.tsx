@@ -41,7 +41,7 @@ export function MediaCard({
     <CardMain>
       <CardMedia
         sx={{ height: 140 }}
-        image={image_url ? image_url : "../img/not_found.png"}
+        image={image_url ? image_url : "../img/not-found.png"}
         title={title}
         component="img"
       />

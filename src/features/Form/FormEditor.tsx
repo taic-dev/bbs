@@ -63,7 +63,7 @@ export function FormEditor({ initialValue }: Props) {
           {...register("text")}
           error={Boolean(errors.text?.message)}
         />
-        <InputErrorMessage name="content" errors={errors} />
+        <InputErrorMessage name="text" errors={errors} />
       </FormGroup>
 
       <NormalButton
