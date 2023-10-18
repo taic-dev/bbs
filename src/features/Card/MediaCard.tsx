@@ -1,4 +1,4 @@
-import { MouseEvent } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import styled from "@emotion/styled";
 import Card from "@mui/material/Card";
@@ -6,26 +6,25 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { NormalButton } from "../Button/NormalButton";
+import { NormalButton } from "../../components/elements/Button/NormalButton";
 import { htmlExclusionsAndTextExcerpts } from "@/utils";
+import { deletePost } from "@/api/posts/deletePost";
+import { ConfirmModal } from "@/components/elements/Modal/ConfirmModal";
+import { NormalModal } from "@/components/elements/Modal/NormalModal";
+import { FormEditor } from "../Form/FormEditor";
+import { PostsData } from "@/types";
 
-type Props = {
-  id: number;
-  title: string;
-  text: string;
-  image_url: string;
-  onClickEdit: (e: MouseEvent<HTMLButtonElement>) => void;
-  onClickDelete: (e: MouseEvent<HTMLButtonElement>) => void;
-};
+export function MediaCard({ postData }: { postData: PostsData }) {
+  console.log(postData);
+  const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
+  const [openEditModal, setOpenEditModal] = useState<boolean>(false);
 
-export function MediaCard({
-  id,
-  title,
-  text,
-  image_url,
-  onClickDelete,
-  onClickEdit,
-}: Props) {
+  const handleClickDelete = async (postId: number) => {
+    console.log(postId)
+    await deletePost(postId);
+    setOpenDeleteModal(false);
+  };
+
   const CardMain = styled(Card)`
     width: calc(50% - 1.5rem / 2);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
@@ -41,25 +40,25 @@ export function MediaCard({
     <CardMain>
       <CardMedia
         sx={{ height: 140 }}
-        image={image_url ? image_url : "../img/not-found.png"}
-        title={title}
+        image={postData.image_url ? postData.image_url : "../img/not-found.png"}
+        title={postData.title}
         component="img"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {title}
+          {postData.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {htmlExclusionsAndTextExcerpts(text, 150)}
+          {htmlExclusionsAndTextExcerpts(postData.text, 150)}
         </Typography>
       </CardContent>
       <CardButtonWrapper>
-        <Link href={`/card/${id}`}>
+        <Link href={`/card/${postData.id}`}>
           <NormalButton size="small" variant="text" text="detail" />
         </Link>
         <div>
           <NormalButton
-            id={id}
+            id={postData.id}
             size="small"
             variant="text"
             text="edit"
@@ -67,10 +66,10 @@ export function MediaCard({
               color: "#00B16B",
               ":hover": { backgroundColor: "rgba(0,	177,	107, 0.04)" },
             }}
-            onClick={(e) => onClickEdit(e)}
+            onClick={() => setOpenEditModal(true)}
           />
           <NormalButton
-            id={id}
+            id={postData.id}
             size="small"
             variant="text"
             text="delete"
@@ -78,10 +77,25 @@ export function MediaCard({
               color: "#ED1A3D",
               ":hover": { backgroundColor: "rgba(237,	26,	61, 0.04)" },
             }}
-            onClick={(e) => onClickDelete(e)}
+            onClick={() => setOpenDeleteModal(true)}
           />
         </div>
       </CardButtonWrapper>
+      <ConfirmModal
+        postId={postData.id}
+        title="本当に削除しますか？"
+        text="削除すると復元することができません。"
+        open={openDeleteModal}
+        onClose={() => setOpenDeleteModal(false)}
+        doExecution={() => handleClickDelete(postData.id)}
+      />
+      <NormalModal
+        title="記事編集"
+        open={openEditModal}
+        onClose={() => setOpenEditModal(false)}
+      >
+        <FormEditor initialValue={postData} />
+      </NormalModal>
     </CardMain>
   );
 }

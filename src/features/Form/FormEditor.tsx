@@ -10,7 +10,7 @@ import { InputErrorMessage } from "@/components/elements/Input/InputErrorMessage
 import { PostsData } from "@/types";
 
 type Props = {
-  initialValue?: PostsData[];
+  initialValue?: PostsData;
   onSubmit?: (data: FormEditorType) => void
 };
 
@@ -25,9 +25,9 @@ export function FormEditor({ initialValue, onSubmit }: Props) {
     reValidateMode: "onBlur",
     resolver: zodResolver(FormEditorSchema),
     defaultValues: initialValue && {
-      title: initialValue[0].title,
-      text: initialValue[0].text,
-      image_url: ""
+      title: initialValue.title,
+      text: initialValue.text,
+      image_url: initialValue.image_url
     },
   });
 
