@@ -6,6 +6,7 @@ import { NormalButton } from "@/components/elements/Button/NormalButton";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { NormalModal } from "@/components/elements/Modal/NormalModal";
 import { FormEditor } from "@/features/Form/FormEditor";
+import { createPost } from "@/api/posts/createPost";
 
 type Props = {
   pageTitle: string;
@@ -13,6 +14,12 @@ type Props = {
 
 export function Header({ pageTitle }: Props) {
   const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
+
+  const handleCreatePost = async (newData: object) => {
+    await createPost(newData);
+    // TODO: POSTの処理後情報を更新する
+    setOpenRegisterModal(false);
+  };
 
   const Header = styled.header`
     display: flex;
@@ -50,7 +57,7 @@ export function Header({ pageTitle }: Props) {
         open={openRegisterModal}
         onClose={() => setOpenRegisterModal(false)}
       >
-        <FormEditor />
+        <FormEditor onSubmit={(newPost) => handleCreatePost(newPost)} />
       </NormalModal>
     </Header>
   );
