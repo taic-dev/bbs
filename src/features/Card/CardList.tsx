@@ -2,7 +2,7 @@
 
 import styled from "@emotion/styled";
 import { MediaCard } from "@/features/Card/MediaCard";
-import { PostsData } from "@/types";
+import { PostData } from "@/types";
 import { useGetPost } from "@/hooks/useGetPost";
 
 const CardWrapper = styled.div`
@@ -16,13 +16,11 @@ export function CardList() {
   const { posts, isLoading } = useGetPost();
   const postsData = posts && [...posts].reverse();
 
-  console.log(postsData);
-
   if (isLoading) return <p>...Loading</p>;
 
   return (
     <CardWrapper>
-      {postsData.map((postData : PostsData) => (
+      {postsData.map((postData : PostData) => (
         <MediaCard
           key={postData.id}
           postData={postData}

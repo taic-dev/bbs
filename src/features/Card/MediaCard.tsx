@@ -12,17 +12,22 @@ import { deletePost } from "@/api/posts/deletePost";
 import { ConfirmModal } from "@/components/elements/Modal/ConfirmModal";
 import { NormalModal } from "@/components/elements/Modal/NormalModal";
 import { FormEditor } from "../Form/FormEditor";
-import { PostsData } from "@/types";
+import { PostData } from "@/types";
+import { editPost } from "@/api/posts/editPost";
 
-export function MediaCard({ postData }: { postData: PostsData }) {
-  console.log(postData);
+export function MediaCard({ postData }: { postData: PostData }) {
+  console.log(postData)
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
 
-  const handleClickDelete = async (postId: number) => {
-    console.log(postId)
+  const handleDeletePost = async (postId: number) => {
     await deletePost(postId);
     setOpenDeleteModal(false);
+  };
+
+  const handleEditPost = async (editData: PostData) => {
+    await editPost(editData);
+    setOpenEditModal(false);
   };
 
   const CardMain = styled(Card)`
@@ -58,7 +63,6 @@ export function MediaCard({ postData }: { postData: PostsData }) {
         </Link>
         <div>
           <NormalButton
-            id={postData.id}
             size="small"
             variant="text"
             text="edit"
@@ -69,7 +73,6 @@ export function MediaCard({ postData }: { postData: PostsData }) {
             onClick={() => setOpenEditModal(true)}
           />
           <NormalButton
-            id={postData.id}
             size="small"
             variant="text"
             text="delete"
@@ -87,14 +90,17 @@ export function MediaCard({ postData }: { postData: PostsData }) {
         text="削除すると復元することができません。"
         open={openDeleteModal}
         onClose={() => setOpenDeleteModal(false)}
-        doExecution={() => handleClickDelete(postData.id)}
+        doExecution={() => handleDeletePost(postData.id)}
       />
       <NormalModal
         title="記事編集"
         open={openEditModal}
         onClose={() => setOpenEditModal(false)}
       >
-        <FormEditor initialValue={postData} />
+        <FormEditor
+          initialValue={postData}
+          onSubmit={(editData) => handleEditPost(editData)}
+        />
       </NormalModal>
     </CardMain>
   );

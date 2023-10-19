@@ -7,11 +7,11 @@ import { FormControl, TextField } from "@mui/material";
 import { FormEditorType } from "./types";
 import { FormEditorSchema } from "./schema";
 import { InputErrorMessage } from "@/components/elements/Input/InputErrorMessage";
-import { PostsData } from "@/types";
+import { PostData } from "@/types";
 
 type Props = {
-  initialValue?: PostsData;
-  onSubmit?: (data: FormEditorType) => void
+  initialValue?: PostData;
+  onSubmit?: (data: PostData) => void
 };
 
 export function FormEditor({ initialValue, onSubmit }: Props) {
@@ -24,11 +24,7 @@ export function FormEditor({ initialValue, onSubmit }: Props) {
     mode: "onSubmit",
     reValidateMode: "onBlur",
     resolver: zodResolver(FormEditorSchema),
-    defaultValues: initialValue && {
-      title: initialValue.title,
-      text: initialValue.text,
-      image_url: initialValue.image_url
-    },
+    defaultValues: initialValue && initialValue
   });
 
   const Form = styled.form`
@@ -41,7 +37,7 @@ export function FormEditor({ initialValue, onSubmit }: Props) {
     width: 100%;
   `;
 
-  const handleSubmitFormEditor = () => {
+  const handleSubmitFormEditor = async () => {
     const formValues = getValues()
     onSubmit && onSubmit(formValues)
     console.log("submit");
