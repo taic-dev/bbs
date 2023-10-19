@@ -4,10 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { NormalTextField } from "@/components/elements/Input/NormalTextField";
 import { NormalButton } from "@/components/elements/Button/NormalButton";
 import { FormControl, TextField } from "@mui/material";
-import { FormEditorType } from "./types";
 import { FormEditorSchema } from "./schema";
 import { InputErrorMessage } from "@/components/elements/Input/InputErrorMessage";
 import { PostData } from "@/types";
+import { FormEditorType } from "./types";
 
 type Props = {
   initialValue?: PostData;

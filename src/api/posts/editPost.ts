@@ -2,7 +2,6 @@ import { PostData } from "@/types";
 import axios, { isAxiosError } from "axios"
 
 export const editPost = async (postData: PostData) => {
-  console.log(postData, postData.id)
   try {
     const res = await axios.patch(
       `${process.env.NEXT_PUBLIC_ENDPOINT}/posts/${postData.id}`,

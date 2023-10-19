@@ -16,7 +16,6 @@ import { PostData } from "@/types";
 import { editPost } from "@/api/posts/editPost";
 
 export function MediaCard({ postData }: { postData: PostData }) {
-  console.log(postData)
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
 
