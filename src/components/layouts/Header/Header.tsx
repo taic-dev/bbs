@@ -7,6 +7,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { NormalModal } from "@/components/elements/Modal/NormalModal";
 import { FormEditor } from "@/features/Form/FormEditor";
 import { createPost } from "@/api/posts/createPost";
+import { PlusIcon } from "@/components/elements/Icons/plusIcon";
 
 type Props = {
   pageTitle: string;
@@ -43,8 +44,9 @@ export function Header({ pageTitle }: Props) {
         <NormalButton
           variant="contained"
           text="記事投稿"
-          endIcon={<AddCircleOutlineIcon />}
+          endIcon={<PlusIcon />}
           sx={{
+            color: "#fff",
             padding: "0.5rem 1.5rem",
             backgroundColor: "#333",
             ":hover": { color: "#333", backgroundColor: "#fff" },

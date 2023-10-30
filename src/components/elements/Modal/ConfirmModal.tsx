@@ -59,7 +59,7 @@ export function ConfirmModal({
           <Typography sx={{ mt: 2 }}>{text}</Typography>
           <ButtonWrapper>
             <NormalButton
-              variant="text"
+              variant="contained"
               text="cancel"
               sx={{
                 padding: "0.5rem 1.5rem",
@@ -75,7 +75,7 @@ export function ConfirmModal({
             />
             <NormalButton
               size="small"
-              variant="text"
+              variant="contained"
               text="OK"
               sx={{
                 padding: "0.5rem 1.5rem",
