@@ -3,11 +3,10 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { NormalButton } from "@/components/elements/Button/NormalButton";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { NormalModal } from "@/components/elements/Modal/NormalModal";
 import { FormEditor } from "@/features/Form/FormEditor";
 import { createPost } from "@/api/posts/createPost";
-import { PlusIcon } from "@/components/elements/Icons/plusIcon";
+import { PlusIcon } from "@/components/elements/Icons/PlusIcon";
 
 type Props = {
   pageTitle: string;
@@ -45,12 +44,6 @@ export function Header({ pageTitle }: Props) {
           variant="contained"
           text="記事投稿"
           endIcon={<PlusIcon />}
-          sx={{
-            color: "#fff",
-            padding: "0.5rem 1.5rem",
-            backgroundColor: "#333",
-            ":hover": { color: "#333", backgroundColor: "#fff" },
-          }}
           onClick={() => setOpenRegisterModal(true)}
         />
       </div>

@@ -70,13 +70,13 @@ export function FormEditor({ initialValue, onSubmit }: Props) {
         type="submit"
         variant="contained"
         text="投稿"
-        sx={{
-          width: "100px",
-          margin: "auto",
-          padding: "0.5rem 1.5rem",
-          backgroundColor: "#333",
-          ":hover": { color: "#333", backgroundColor: "#fff" },
-        }}
+        // sx={{
+        //   width: "100px",
+        //   margin: "auto",
+        //   padding: "0.5rem 1.5rem",
+        //   backgroundColor: "#333",
+        //   ":hover": { color: "#333", backgroundColor: "#fff" },
+        // }}
       />
     </Form>
   );

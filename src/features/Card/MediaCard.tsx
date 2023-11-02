@@ -58,27 +58,21 @@ export function MediaCard({ postData }: { postData: PostData }) {
       </CardContent>
       <CardButtonWrapper>
         <Link href={`/card/${postData.id}`}>
-          <NormalButton size="small" variant="text" text="detail" />
+          <NormalButton variant="text" text="detail" buttonStyle="black" buttonSize="small" />
         </Link>
         <div>
           <NormalButton
-            size="small"
             variant="text"
             text="edit"
-            sx={{
-              color: "#00B16B",
-              ":hover": { backgroundColor: "rgba(0,	177,	107, 0.04)" },
-            }}
+            buttonStyle="green"
+            buttonSize="small"
             onClick={() => setOpenEditModal(true)}
           />
           <NormalButton
-            size="small"
             variant="text"
             text="delete"
-            sx={{
-              color: "#ED1A3D",
-              ":hover": { backgroundColor: "rgba(237,	26,	61, 0.04)" },
-            }}
+            buttonStyle="red"
+            buttonSize="small"
             onClick={() => setOpenDeleteModal(true)}
           />
         </div>

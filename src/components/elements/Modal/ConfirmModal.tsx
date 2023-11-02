@@ -59,30 +59,14 @@ export function ConfirmModal({
           <Typography sx={{ mt: 2 }}>{text}</Typography>
           <ButtonWrapper>
             <NormalButton
+              buttonStyle="red"
               variant="contained"
               text="cancel"
-              sx={{
-                padding: "0.5rem 1.5rem",
-                color: "#333",
-                backgroundColor: "#fff",
-                ":hover": {
-                  color: "#fff",
-                  backgroundColor: "#333",
-                  border: "none",
-                },
-              }}
               onClick={onClose}
             />
             <NormalButton
-              size="small"
               variant="contained"
               text="OK"
-              sx={{
-                padding: "0.5rem 1.5rem",
-                color: "#fff",
-                backgroundColor: "#333",
-                ":hover": { color: "#333", backgroundColor: "#fff" },
-              }}
               onClick={() => doExecution(postId)}
             />
           </ButtonWrapper>
