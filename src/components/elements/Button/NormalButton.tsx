@@ -33,7 +33,9 @@ const buttonSizes: {
   large: { fontSize: "20px", padding: "1rem 2rem" },
 };
 
-const CustomMuiButton = styled(Button)<{
+const CustomMuiButton = styled(Button, {
+  shouldForwardProp: (prop) => prop !== "buttonStyle" && prop !== "buttonSize",
+})<{
   buttonStyle: ButtonStyleType;
   buttonSize: ButtonSize;
 }>`
